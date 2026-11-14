@@ -125,12 +125,15 @@ function askOne(url,model,key,h,signal){
 var hd={'Content-Type':'application/json'};if(key)hd.Authorization='Bearer '+key;
 return fetch(url,{method:'POST',headers:hd,body:JSON.stringify({model:model,messages:h,stream:false}),signal:signal}).then(function(r){
 return r.text().then(function(s){var j=null;try{j=JSON.parse(s)}catch(e){}
-if(!r.ok||(j&&j.error)){var m=(j&&j.error&&(j.error.message||j.error.code))||('http '+r.status);throw new Error(String(m))}
+if(Array.isArray(j))j=j[0]||{};
+var er=j&&j.error;
+if(!r.ok||er){var m=(er&&(er.message||er.code))||('http '+r.status);throw new Error(String(m))}
 var t=j&&j.choices&&j.choices[0]&&j.choices[0].message?j.choices[0].message.content:'';
+if(typeof t!=='string')t='';
 if(!t)throw new Error('Пустой ответ модели');
 return t})})}
 async function askAI(h,o){var ep=store('ep')||{},err=null;
-var custom=!!ep.url,url=ep.url||AIDEF.url,model=ep.model||AIDEF.model;
+var custom=!!ep.url&&ep.url!==AIDEF.url,url=ep.url||AIDEF.url,model=ep.model||AIDEF.model;
 if(ep.key||custom){
 try{var t=await askOne(url,model,ep.key,h,o.signal);o.onText({text:t});return{text:t}}
 catch(e){if(o.signal&&o.signal.aborted)throw e;if(custom)throw e;err=e}}
