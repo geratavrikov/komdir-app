@@ -142,7 +142,7 @@ if(/location is not supported/i.test(m))return 'Google не отвечает с 
 if(/API key not valid|invalid.*key|API_KEY_INVALID/i.test(m))return 'Ключ не подходит. Скопируйте его целиком из aistudio.google.com/apikey.';
 if(/Free limit|every 45 seconds|429/i.test(m))return 'Бесплатная модель: один ответ в 45 секунд. Подождите немного и повторите.';
 if(/Failed to fetch|network|Load failed/i.test(m))return 'Нет связи с AI-сервисом. Проверьте интернет или VPN.';
-return 'AI ответил ошибкой: '+m.slice(0,160)}}
+return 'AI ответил ошибкой: '+m.slice(0,160)}
 function store(k,v){try{if(v===undefined){var r=localStorage.getItem(k);return r?JSON.parse(r):null}localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}}
 document.querySelectorAll('#tabs button').forEach(function(b){b.onclick=function(){
 document.querySelectorAll('#tabs button').forEach(function(x){x.classList.toggle('on',x===b)});
