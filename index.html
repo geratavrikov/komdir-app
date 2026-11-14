@@ -59,7 +59,7 @@ label.ck{display:flex;gap:8px;padding:3px 0}label.ck input{width:auto}[hidden]{d
 <div class="row"><button class="btn p" id="send">Получить ответ</button><button class="btn" id="stop" hidden>Стоп</button><button class="btn" id="cp">Копировать</button><button class="btn" id="clr">Очистить</button></div>
 <div class="warn" id="guard" hidden></div>
 <div class="note" id="src"></div>
-<details style="margin-top:8px"><summary class="note" style="cursor:pointer">Настройки AI (необязательно)</summary>
+<details open style="margin-top:8px"><summary class="note" style="cursor:pointer">Настройки AI — вставьте ключ сюда</summary>
 <div class="note">По умолчанию подключён Google Gemini (бесплатный тариф): адрес и модель уже заполнены, нужен только ключ из aistudio.google.com/apikey. Ключ хранится только в этом браузере и никуда, кроме Google, не отправляется. Без ключа кнопка копирует готовый промпт.</div>
 <input id="ep1" placeholder="Адрес сервера" style="margin-top:6px"><input id="ep2" placeholder="Модель" style="margin-top:6px"><input id="ep3" placeholder="Ключ (если нужен)" style="margin-top:6px"></details></div>
 <div id="log"></div></div></div></section>
@@ -190,7 +190,7 @@ P.forEach(function(w,wi){var h=document.createElement('div');h.className='wk';h.
 w[1].forEach(function(x,ti){var k=wi+'-'+ti;t++;if(chk[k])n++;var l=document.createElement('label'),c=document.createElement('input'),s=document.createElement('span');
 l.className='ck';c.type='checkbox';c.checked=!!chk[k];c.onchange=function(){chk[k]=c.checked;store('chk',chk);drawPlan()};s.textContent=x;l.appendChild(c);l.appendChild(s);p.appendChild(l)})});
 $('pp').textContent='Выполнено '+n+' из '+t}
-var EP=store('ep')||{};['url','model','key'].forEach(function(k,i){var e=$('ep'+(i+1));e.value=EP[k]||(k==='key'?'':(AIDEF[k]||''));e.onchange=function(){EP[k]=e.value.trim();store('ep',EP)}});
+var EP=store('ep')||{};['url','model','key'].forEach(function(k,i){var e=$('ep'+(i+1));e.value=EP[k]||(k==='key'?'':(AIDEF[k]||''));var save=function(){EP[k]=e.value.trim();store('ep',EP)};e.onchange=save;e.oninput=save});
 drawPlan();
 function go(c,s){cur=c;sc=s;hist=[];$('log').textContent='';drawList();drawSc();document.querySelector('#tabs button[data-t=chat]').click()}
 [['Планёрка на сегодня',4,0],['Контроль поручений',5,2],['Встреча 1:1',6,0],['Утренняя сводка',0,2],['Оппонент решению',3,2],['Тренажёр: закупщик',7,0],['Выступление',8,0]].forEach(function(q){var b=document.createElement('button');b.className='btn';b.textContent=q[0];b.onclick=function(){go(q[1],q[2])};$('qk').appendChild(b)});
