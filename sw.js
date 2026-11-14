@@ -1,4 +1,4 @@
-﻿var C='komdir-v8',F=['./','index.html','manifest.webmanifest','icon-192.png','icon-512.png','apple-touch-icon.png'];
+﻿var C='komdir-v9',F=['./','index.html','manifest.webmanifest','icon-192.png','icon-512.png','apple-touch-icon.png'];
 // install: precache, but never block activation on failures
 self.addEventListener('install',function(e){
   e.waitUntil(caches.open(C).then(function(c){return c.addAll(F)}).catch(function(){}));

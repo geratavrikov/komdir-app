@@ -61,7 +61,7 @@ label.ck{display:flex;gap:8px;padding:3px 0}label.ck input{width:auto}[hidden]{d
 <div class="note" id="src"></div>
 <details open style="margin-top:8px"><summary class="note" style="cursor:pointer">Настройки AI — ключ Gemini (для VPN)</summary>
 <div class="note">По умолчанию — Google Gemini (бесплатный тариф): адрес и модель уже заполнены, вставьте ключ из aistudio.google.com/apikey. Google не отвечает с российских IP, поэтому нужен VPN. Если ключа нет или VPN выключен, приложение само ответит резервной бесплатной моделью без ключа (медленнее, один ответ в 45 секунд). Ключ хранится только в этом браузере.</div>
-<input id="ep1" placeholder="Адрес сервера" style="margin-top:6px"><input id="ep2" placeholder="Модель" style="margin-top:6px"><input id="ep3" placeholder="Ключ Gemini (для VPN)" style="margin-top:6px"><button class="btn" id="hard" style="margin-top:8px">Сбросить кэш и обновить</button><div class="note" id="ver" style="font-size:12px">Версия страницы 8 · 15.11.2026</div></details></div>
+<input id="ep1" placeholder="Адрес сервера" style="margin-top:6px"><input id="ep2" placeholder="Модель" style="margin-top:6px"><input id="ep3" placeholder="Ключ Gemini (для VPN)" style="margin-top:6px"><button class="btn" id="hard" style="margin-top:8px">Сбросить кэш и обновить</button><div class="note" id="ver" style="font-size:12px">Версия страницы 9 · 15.11.2026</div></details></div>
 <div id="log"></div></div></div></section>
 <section id="ai" hidden><div class="card"><h2>Универсальный ассистент</h2>
 <div class="note">Отдельный ассистент «на всё»: напишите любой запрос — он выполняет задачу, а не пересказывает шаблон. Цены, договоры, контакты и коммерческую тайну не отправляйте: в тексте они будут отклонены.</div>
@@ -130,9 +130,12 @@ var $=function(i){return document.getElementById(i)};
 var cur=0,sc=0,hist=[],ctl=null,sample=null;
 var AIDEF={url:'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions',model:'gemini-flash-latest'};
 var FREEF={url:'https://text.pollinations.ai/openai',model:'openai-fast'};
-function askOne(url,model,key,h,signal){
-var hd={'Content-Type':'application/json'};if(key)hd.Authorization='Bearer '+key;
-return fetch(url,{method:'POST',headers:hd,body:JSON.stringify({model:model,messages:h,stream:false}),signal:signal}).then(function(r){
+function askOne(url,model,key,h,signal,ms){
+ms=ms||60000;var hd={'Content-Type':'application/json'};if(key)hd.Authorization='Bearer '+key;
+var ac=new AbortController(),to=false,tid=setTimeout(function(){to=true;try{ac.abort()}catch(e){}},ms);
+var onab=function(){try{ac.abort()}catch(e){}};if(signal)signal.addEventListener('abort',onab);
+var fin=function(){clearTimeout(tid);if(signal)signal.removeEventListener('abort',onab)};
+return fetch(url,{method:'POST',headers:hd,body:JSON.stringify({model:model,messages:h,stream:false}),signal:ac.signal}).then(function(r){
 return r.text().then(function(s){var j=null;try{j=JSON.parse(s)}catch(e){}
 if(Array.isArray(j))j=j[0]||{};
 var er=j&&j.error;
@@ -140,21 +143,22 @@ if(!r.ok||er){var m=(er&&(er.message||er.code))||('http '+r.status);throw new Er
 var t=j&&j.choices&&j.choices[0]&&j.choices[0].message?j.choices[0].message.content:'';
 if(typeof t!=='string')t='';
 if(!t)throw new Error('Пустой ответ модели');
-return t})})}
+return t})}).then(function(t){fin();return t},function(e){fin();if(to)throw new Error('НЕТ_ОТВЕТА:'+Math.round(ms/1000));throw e})}
 async function askAI(h,o){var ep=store('ep')||{},err=null;
 var custom=!!ep.url&&ep.url!==AIDEF.url,url=ep.url||AIDEF.url,model=ep.model||AIDEF.model;
 if(ep.key||custom){
-try{var t=await askOne(url,model,ep.key,h,o.signal);o.onText({text:t});return{text:t}}
-catch(e){if(o.signal&&o.signal.aborted)throw e;if(custom)throw e;err=e}}
-try{o.onText({text:(err?'Gemini: '+err.message.replace(/\.+$/,'').slice(0,90)+'. ':'')+'Отвечает бесплатная модель без ключа, 10–40 секунд…'});
-var t2=await askOne(FREEF.url,FREEF.model,'',h,o.signal);o.onText({text:t2});
+try{var t=await askOne(url,model,ep.key,h,o.signal,custom?60000:25000);o.onText({text:t});return{text:t}}
+catch(e){if(o.signal&&o.signal.aborted)throw e;if(custom&&!/^НЕТ_ОТВЕТА/.test(e.message))throw e;err=e}}
+try{o.onText({text:(err?'Gemini не ответил. ':'')+'Отвечает бесплатная модель без ключа — до 70 секунд, счётчик ниже.'});
+var t2=await askOne(FREEF.url,FREEF.model,'',h,o.signal,70000);o.onText({text:t2});
 return{text:(err?'[резервная бесплатная модель, Gemini: '+err.message.slice(0,90)+']\n\n':'')+t2}}
-catch(e2){if(o.signal&&o.signal.aborted)throw e2;throw(err||e2)}}
+catch(e2){if(o.signal&&o.signal.aborted)throw e2;if(err&&!/^НЕТ_ОТВЕТА/.test(err.message))throw err;throw e2}}
 function niceErr(e){var m=(e&&e.message)||'';
 if(/location is not supported/i.test(m))return 'Google не отвечает с российского IP. Включите VPN на телефоне и нажмите ещё раз.';
 if(/API key not valid|invalid.*key|API_KEY_INVALID/i.test(m))return 'Ключ не подходит. Скопируйте его целиком из aistudio.google.com/apikey.';
 if(/Free limit|every 45 seconds|429/i.test(m))return 'Бесплатная модель: один ответ в 45 секунд. Подождите немного и повторите.';
-if(/Failed to fetch|network|Load failed/i.test(m))return 'Нет связи с AI-сервисом. Проверьте интернет или VPN.';
+if(/^НЕТ_ОТВЕТА:(\d+)/.test(m))return 'Модель не ответила за '+m.split(':')[1]+' с. Проверьте интернет (VPN) и нажмите «Получить ответ» ещё раз.';
+if(/Failed to fetch|network|Load failed|aborted|AbortError/i.test(m))return 'Связь с AI-сервисом прервалась. Проверьте интернет или VPN и повторите.';
 return 'AI ответил ошибкой: '+m.slice(0,160)}
 function store(k,v){try{if(v===undefined){var r=localStorage.getItem(k);return r?JSON.parse(r):null}localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}}
 document.querySelectorAll('#tabs button').forEach(function(b){b.onclick=function(){
@@ -180,10 +184,12 @@ var a=A[cur],p0=a[5][sc][1],q=hist.length?ex:(p0?(p0+(ex?'\n\nУточнение
 if(!q){g.hidden=false;g.textContent='Напишите запрос в поле выше — универсальный ассистент отвечает на любой вопрос.';return}
 add('u',hist.length?ex:a[1]+' · '+a[5][sc][0]+(ex?': '+ex:''));
 hist.push({role:'user',content:(hist.length?'':BASE+a[3]+'\n\n')+q});$('inp').value='';
-var box=add('a','…');ctl=new AbortController();$('stop').hidden=false;$('send').disabled=true;
-try{var r=await sample(hist,{onText:function(t){box.textContent=t.text},signal:ctl.signal,cache:false});box.textContent=r.text;hist.push({role:'assistant',content:r.text})}
+var box=add('a','Отправляю запрос…');ctl=new AbortController();$('stop').hidden=false;$('send').disabled=true;
+var t0=Date.now(),base='Отправляю запрос…',el=function(){return Math.round((Date.now()-t0)/1000)+' с'};
+var tick=setInterval(function(){if(ctl)box.textContent=base+' · '+el()},1000);
+try{var r=await sample(hist,{onText:function(t){base=t.text;box.textContent=t.text+' · '+el()},signal:ctl.signal,cache:false});box.textContent=r.text;hist.push({role:'assistant',content:r.text})}
 catch(e){box.textContent=ctl.signal.aborted?box.textContent+' [остановлено]':niceErr(e);hist.pop()}
-ctl=null;$('stop').hidden=true;$('send').disabled=false};
+clearInterval(tick);ctl=null;$('stop').hidden=true;$('send').disabled=false};
 $('stop').onclick=function(){if(ctl)ctl.abort()};
 $('clr').onclick=function(){hist=[];$('log').textContent='';$('guard').hidden=true};
 $('hard').onclick=async function(){try{var rs=await navigator.serviceWorker.getRegistrations();await Promise.all(rs.map(function(r){return r.unregister()}));var ks=await caches.keys();await Promise.all(ks.map(function(k){return caches.delete(k)}))}catch(e){}location.reload()};
@@ -196,11 +202,13 @@ if(RX.test(ex)){g.hidden=false;g.textContent='В тексте есть цены,
 g.hidden=true;
 aiAdd('u',ex);$('ai_inp').value='';
 ahist.push({role:'user',content:(ahist.length?'':BASE+UNIV+'\n\n')+ex});
-var box=aiAdd('a','…');
+var box=aiAdd('a','Отправляю запрос…');
 actl=new AbortController();$('ai_stop').hidden=false;$('ai_send').disabled=true;
-try{var r=await askAI(ahist,{onText:function(t){box.textContent=t.text},signal:actl.signal});box.textContent=r.text;ahist.push({role:'assistant',content:r.text})}
+var t0=Date.now(),base='Отправляю запрос…',el=function(){return Math.round((Date.now()-t0)/1000)+' с'};
+var tick=setInterval(function(){if(actl)box.textContent=base+' · '+el()},1000);
+try{var r=await askAI(ahist,{onText:function(t){base=t.text;box.textContent=t.text+' · '+el()},signal:actl.signal});box.textContent=r.text;ahist.push({role:'assistant',content:r.text})}
 catch(e){box.textContent=actl.signal.aborted?box.textContent+' [остановлено]':niceErr(e);ahist.pop()}
-actl=null;$('ai_stop').hidden=true;$('ai_send').disabled=false};
+clearInterval(tick);actl=null;$('ai_stop').hidden=true;$('ai_send').disabled=false};
 $('ai_stop').onclick=function(){if(actl)actl.abort()};
 $('ai_clr').onclick=function(){ahist=[];$('ai_log').textContent='';$('ai_guard').hidden=true};
 $('ai_cp').onclick=function(){var b=$('ai_log').querySelectorAll('.msg.a'),t=b.length?b[b.length-1].textContent:'';if(!t)return;try{navigator.clipboard.writeText(t)}catch(e){}};
