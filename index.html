@@ -137,7 +137,8 @@ var custom=!!ep.url&&ep.url!==AIDEF.url,url=ep.url||AIDEF.url,model=ep.model||AI
 if(ep.key||custom){
 try{var t=await askOne(url,model,ep.key,h,o.signal);o.onText({text:t});return{text:t}}
 catch(e){if(o.signal&&o.signal.aborted)throw e;if(custom)throw e;err=e}}
-try{var t2=await askOne(FREEF.url,FREEF.model,'',h,o.signal);o.onText({text:t2});
+try{o.onText({text:(err?'Gemini: '+err.message.slice(0,90)+'. ':'')+'Отвечает бесплатная модель без ключа, 10–40 секунд…'});
+var t2=await askOne(FREEF.url,FREEF.model,'',h,o.signal);o.onText({text:t2});
 return{text:(err?'[резервная бесплатная модель, Gemini: '+err.message.slice(0,90)+']\n\n':'')+t2}}
 catch(e2){if(o.signal&&o.signal.aborted)throw e2;throw(err||e2)}}
 function niceErr(e){var m=(e&&e.message)||'';
