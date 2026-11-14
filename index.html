@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Комдир">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#2a2d33">
+<title>Кабинет коммерческого директора · AI-ассистенты</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#eef1f5;--card:#fff;--tx:#17202b;--mut:#5b6877;--navy:#14284b;--ac:#1f4e9c;--acx:#fff;--bd:#d5dce5;--bad:#a8261d;--ok:#17703d}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f141b;--card:#18202a;--tx:#e6ebf1;--mut:#97a4b3;--navy:#0b1930;--ac:#6ea2ee;--acx:#0c1420;--bd:#2a3442;--bad:#f0877f;--ok:#6fcf97}}
+:root[data-theme="dark"]{--bg:#0f141b;--card:#18202a;--tx:#e6ebf1;--mut:#97a4b3;--navy:#0b1930;--ac:#6ea2ee;--acx:#0c1420;--bd:#2a3442;--bad:#f0877f;--ok:#6fcf97}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--navy);color:#fff;padding:14px 20px;border-bottom:3px solid #c8a24a}
+header h1{margin:0;font-size:18px;font-weight:600;letter-spacing:.2px}header div{font-size:12px;opacity:.75;margin-top:2px}
+nav{display:flex;gap:0;background:var(--card);border-bottom:1px solid var(--bd);overflow-x:auto}
+nav button{border:0;background:none;color:var(--mut);padding:12px 18px;font:inherit;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+nav button.on{color:var(--ac);border-bottom-color:var(--ac)}
+main{max-width:1100px;margin:0 auto;padding:16px}
+.grid{display:grid;grid-template-columns:260px 1fr;gap:16px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:14px;margin-bottom:12px}
+.grp{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--mut);margin:10px 0 6px;font-weight:700}
+.as{display:block;width:100%;text-align:left;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-left:4px solid transparent;padding:9px 10px;margin-bottom:5px;font:inherit;cursor:pointer;border-radius:4px}
+.as.on{border-left-color:#c8a24a;background:var(--bg);font-weight:600}
+.as small{display:block;color:var(--mut);font-weight:400;font-size:12px}
+h2{font-size:16px;margin:0 0 2px;color:var(--navy)}@media(prefers-color-scheme:dark){h2{color:var(--tx)}}
+.sc{display:flex;flex-direction:column;gap:6px;margin:10px 0}
+.sc button{text-align:left;border:1px solid var(--bd);background:var(--bg);color:var(--tx);padding:8px 10px;border-radius:4px;font:inherit;cursor:pointer}
+.sc button.on{border-color:var(--ac);outline:1px solid var(--ac)}
+textarea,input{width:100%;border:1px solid var(--bd);background:var(--bg);color:var(--tx);border-radius:4px;padding:8px;font:inherit}textarea{min-height:70px;resize:vertical}
+.btn{border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:4px;padding:8px 14px;font:inherit;cursor:pointer}.btn.p{background:var(--ac);border-color:var(--ac);color:var(--acx);font-weight:600}
+.row{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.msg{padding:10px 12px;border:1px solid var(--bd);border-radius:4px;margin:8px 0;white-space:pre-wrap;background:var(--bg)}.msg.a{background:var(--card);border-left:4px solid var(--ac)}
+.warn{color:var(--bad);font-size:13px;margin-top:6px}.note{color:var(--mut);font-size:12px;margin-top:6px}
+table{border-collapse:collapse;width:100%;min-width:560px}th{background:var(--navy);color:#fff;text-align:left;font-weight:600}th,td{padding:7px;border-bottom:1px solid var(--bd)}
+.scroll{overflow-x:auto;margin-top:10px}.late{color:var(--bad);font-weight:700}.done{color:var(--ok);font-weight:700}
+.wk{margin:10px 0 4px;font-weight:700;color:var(--navy)}@media(prefers-color-scheme:dark){.wk{color:var(--tx)}}
+label.ck{display:flex;gap:8px;padding:3px 0}label.ck input{width:auto}[hidden]{display:none!important}
+:root{--navy:#2a2d33;--ac:#c8102e}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--navy:#17191d;--ac:#ff5c70}}:root[data-theme="dark"]{--navy:#17191d;--ac:#ff5c70}header{border-bottom-color:var(--ac)}.as.on{border-left-color:var(--ac)}.dl{display:flex;gap:10px;align-items:flex-start;padding:5px 0}.dl input{width:auto;margin-top:4px}.dl b{min-width:48px}.qk{display:flex;gap:6px;flex-wrap:wrap}.it{display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid var(--bd);padding:6px 0}
+.nt{border-left:4px solid var(--ac)}.tg{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--mut);font-weight:700}.nt h3{margin:2px 0 4px;font-size:15px}.nt a{color:var(--ac)}.act{margin-top:6px;padding:6px 8px;background:var(--bg);border-radius:4px}
+</style></head><body>
+<header><h1>СЕВЕРСТАЛЬ-МЕТИЗ · Кабинет коммерческого директора</h1><div>Личные ассистенты · только открытые и вымышленные данные · решения остаются за руководителем</div></header>
+<nav id="tabs"><button data-t="day" class="on">Мой день</button><button data-t="news">Сводка рынка</button><button data-t="chat">Ассистенты</button><button data-t="reg">Реестр поручений</button><button data-t="plan">План на 30 дней</button></nav>
+<main>
+<section id="day"><div class="card"><h2>Быстрый запуск для меня</h2><div class="note">Один клик: откроется нужный ассистент с готовым сценарием.</div><div class="qk" id="qk" style="margin-top:8px"></div></div>
+<div class="card"><h2>Мой рабочий день</h2><div class="note" id="dd"></div><div id="dc"></div></div>
+<div class="card"><h2>Три приоритета недели</h2><input id="p1" placeholder="1" style="margin-bottom:6px"><input id="p2" placeholder="2" style="margin-bottom:6px"><input id="p3" placeholder="3"></div>
+<div class="card"><h2>Журнал моих решений</h2><div class="note">Решение, рассмотренные альтернативы и дата пересмотра. Без цен, клиентов и фамилий.</div>
+<div class="row"><input id="jt" placeholder="Решение" style="flex:2;min-width:150px"><input id="ja" placeholder="Альтернативы" style="flex:2;min-width:130px"><input id="jd" type="date" style="flex:1;min-width:130px"><button class="btn p" id="jadd">Записать</button></div><div id="jl"></div></div></section>
+<section id="chat" hidden><div class="grid"><div id="list"></div>
+<div><div class="card"><h2 id="an"></h2><div class="note" id="ad"></div><div class="sc" id="sc"></div>
+<textarea id="inp" placeholder="Уточнение к сценарию (необязательно): отрасль, горизонт, формат результата"></textarea>
+<div class="row"><button class="btn p" id="send">Получить ответ</button><button class="btn" id="stop" hidden>Стоп</button><button class="btn" id="cp">Копировать</button><button class="btn" id="clr">Очистить</button></div>
+<div class="warn" id="guard" hidden></div>
+<div class="note" id="src"></div>
+<details style="margin-top:8px"><summary class="note" style="cursor:pointer">Настройки AI (необязательно)</summary>
+<div class="note">По умолчанию подключён Google Gemini (бесплатный тариф): адрес и модель уже заполнены, нужен только ключ из aistudio.google.com/apikey. Ключ хранится только в этом браузере и никуда, кроме Google, не отправляется. Без ключа кнопка копирует готовый промпт.</div>
+<input id="ep1" placeholder="Адрес сервера" style="margin-top:6px"><input id="ep2" placeholder="Модель" style="margin-top:6px"><input id="ep3" placeholder="Ключ (если нужен)" style="margin-top:6px"></details></div>
+<div id="log"></div></div></div></section>
+<section id="news" hidden><div class="card"><h2>Сводка рынка на 14.11.2026</h2><div class="note">Собрана из открытых источников на момент создания страницы. Данные статичны: обновляются только при пересборке (см. ниже).</div></div><div id="nl"></div>
+<div class="card"><h2>Как получать сводку каждый день</h2><div class="note" style="font-size:13px">Сама страница не может присылать сообщения и ходить по сайтам: для этого нужен сервер с планировщиком. Рабочие способы:</div>
+<div class="it"><span>1. Попросить ассистента в чате Claude каждое утро: он найдёт свежие материалы со ссылками. Нажмите, чтобы скопировать запрос.</span><button class="btn p" id="nq">Копировать запрос</button></div>
+<div class="it"><span>2. Бесплатные оповещения на почту раз в день (Google Alerts или аналог, RSS-ридер) по запросам: «Северсталь-метиз»; «стальные канаты» рынок; «антидемпинговая пошлина» проволока крепёж; «ММК-МЕТИЗ»; «Промметиз»; ВСМ арматура поставщики.</span></div>
+<div class="it"><span>3. Подписки первоисточников: рассылка Минтранса, новости ЕЭК о защите внутреннего рынка, раздел новостей метизных заводов-конкурентов.</span></div>
+<div class="it"><span>4. Полная автоматика (ежедневная сводка с поиском и отправкой): отдельный небольшой сервис в корпоративной ИТ-инфраструктуре, по согласованию с ИБ.</span></div></div></section>
+<section id="reg" hidden><div class="card"><h2>Реестр поручений (локально)</h2><div class="note">Хранится только в этом браузере. Реальные поручения ведите в корпоративной системе.</div>
+<div class="row"><input id="rt" placeholder="Поручение" style="flex:2;min-width:150px"><input id="ro" placeholder="Ответственный (роль)" style="flex:1;min-width:110px"><input id="rd" type="date" style="flex:1;min-width:130px"><button class="btn p" id="radd">Добавить</button></div>
+<div class="scroll"><table><thead><tr><th>Поручение</th><th>Ответств.</th><th>Срок</th><th>Статус</th><th></th></tr></thead><tbody id="rb"></tbody></table></div>
+<div class="row"><span id="rs" class="note"></span><button class="btn" id="rcsv">Скачать CSV</button></div></div></section>
+<section id="plan" hidden><div class="card"><h2>План на 30 дней</h2><div id="pl"></div><div class="note" id="pp"></div></div></section>
+</main>
+<script>
+(function(){
+var BASE='Ты — персональный советник коммерческого директора «Северсталь-метиз» (канаты, проволока, крепёж, арматурные пряди, стальная фибра, сетки); обращайся ко мне лично как к коммерческому директору. Конкретные действия вместо общих рассуждений. Не запрашивай коммерческую тайну, персональные данные, сведения о реальных клиентах, ценах, договорах и финансах; только публичная, синтетическая или разрешённая информация. В ответе: рекомендуемый вариант, альтернативы, риски, критерии успеха, следующие шаги. По-русски, структурно, деловым стилем.';
+var OPEN=' У тебя нет доступа к интернету: опирайся на общеизвестные сведения, не выдумывай номера документов, даты и цифры; для каждого вывода указывай достоверность (высокая/средняя/низкая) и пометку «проверить по первоисточнику» там, где нужна проверка.';
+var A=[
+['Рынок и проекты','Аналитик проектов','Инфраструктура и новые заказчики',OPEN,1,[
+['Карта проектов','Составь карту типов крупных проектов (мосты, ВСМ, АЭС, порты, ГОКи), где нужны канаты, проволока и специальный крепёж: заказчики, стадии, точки входа поставщика.'],
+['Чек-лист оценки проекта','Дай чек-лист из 15 вопросов для быстрой оценки инфраструктурного проекта как источника спроса на метизы, с критериями приоритета.'],
+['Утренняя сводка (макет)','Подготовь демонстрационный формат утренней сводки на 5 минут чтения: новые проекты, регулирование, конкуренты, по каждому пункту — действие.']]],
+['Рынок и проекты','Монитор промполитики','Регулирование и защита рынка',OPEN,1,[
+['Матрица регуляторики','Составь перечень типов актов (ЕЭК, Минпромторг, ФАС, антидемпинг, нацрежим закупок, ГОСТ), влияющих на метизную отрасль, и как отслеживать каждый.'],
+['Оценка влияния акта','Дай шаблон правовой и экономической оценки нового нормативного акта для коммерческого блока: возможности, угрозы, действия, сроки.'],
+['Антидемпинг: сценарии','Опиши сценарии действий отрасли при импорте по заниженным ценам из Китая: инструменты защиты, роль поставщика, риски.']]],
+['Рынок и проекты','Разведчик конкурентов','Открытые данные о рынке',OPEN,1,[
+['Профиль конкурента','Дай шаблон публичного профиля конкурента (российского, китайского, турецкого): мощности, продукты, экспорт, тендеры, технологии, оценка достоверности.'],
+['Еженедельная сводка','Предложи формат еженедельной конкурентной сводки на одну страницу с оценкой достоверности и выводами для коммерческого директора.'],
+['Источники','Перечисли классы открытых источников для конкурентной разведки в промышленном B2B и правила проверки информации.']]],
+['Рынок и проекты','Стратег','Гипотезы и сценарии',OPEN,1,[
+['Оценка рынка','Дай рамку оценки привлекательности нового рынка для производителя метизов: критерии, веса, вопросы для проверки.'],
+['Сценарии конкуренции','Смоделируй три сценария давления китайских производителей на 2–3 года (условные данные) с индикаторами раннего предупреждения.'],
+['Оппонент решению','Выступи независимым оппонентом: я предложу стратегическое решение, найди слабые места, скрытые допущения и альтернативы.']]],
+['Команда и управление','Организатор совещаний','Планёрки и протоколы','',0,[
+['Планёрка 25 минут','Разработай сценарий 25-минутной планёрки коммерческого блока: тайминг, пять вопросов, правила завершения, формат фиксации решений.'],
+['Еженедельное совещание','Разработай формат 60-минутного еженедельного совещания: результаты, отклонения, проблемы, решения; критерии, что выносить на совещание; шаблон протокола.'],
+['Аудит совещаний','Дай методику аудита совещаний коммерческого блока и план сокращения их времени на 30%.']]],
+['Команда и управление','Контролёр поручений','Дисциплина исполнения','',0,[
+['Система контроля','Разработай систему контроля поручений: статусы, критерии просрочки, ранние предупреждения, эскалация, правила закрытия, ответственность.'],
+['Правила эскалации','Опиши трёхуровневую эскалацию просроченных поручений с сроками и формулировками.'],
+['Недельный обзор исключений','Дай формат недельного обзора исключений по поручениям: что показывать, что скрывать, какие решения принимать.']]],
+['Команда и управление','Наставник руководителей','1:1, делегирование, развитие','',0,[
+['Встреча 1:1','Подготовь структуру 30-минутной встречи с руководителем подразделения и 10 сильных вопросов.'],
+['Сложный разговор (SBI)','Ситуация: руководитель нарушает сроки и ссылается на внешние обстоятельства. Дай сценарий беседы по SBI, реакции собеседника, договорённости.'],
+['Модель делегирования','Предложи модель делегирования для коммерческого директора и аудит нагрузки: 30 задач, категории (оставить, делегировать, автоматизировать, исключить).']]],
+['Команда и управление','Тренер переговоров','Тренажёр на вымышленных условиях','',0,[
+['Жёсткий закупщик','Сыграй жёсткого закупочного директора крупного заказчика (вымышленные условия). Одна реплика за раз, после моего ответа — краткая оценка аргументов.'],
+['Китайский поставщик','Сыграй представителя китайского поставщика, давящего ценой. Веди диалог по репликам, затем разбери мои аргументы о ценности продукта.'],
+['Работа с возражениями','Составь 10 типовых возражений крупного промышленного заказчика и модели ответов, без реальных цен и условий.']]],
+['Команда и управление','Спичрайтер и аналитика','Выступления и записки','',0,[
+['Выступление 5 минут','Подготовь пятиминутное выступление перед коммерческой командой о дисциплине исполнения: текст, тезисы, ответы на три возражения.'],
+['Аналитическая записка','Дай структуру отраслевой аналитической записки для обсуждения с органами власти: тезисы, аргументы, источники.'],
+['Тезисы для конференции','Подготовь тезисы доклада на отраслевом мероприятии о конкуренции и импортозамещении в метизной отрасли.']]]
+];
+var $=function(i){return document.getElementById(i)};
+var cur=0,sc=0,hist=[],ctl=null,sample=null;
+var AIDEF={url:'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions',model:'gemini-flash-latest'};
+async function askAI(h,o){var ep=store('ep')||{};
+var url=ep.url||(/^https?:$/.test(location.protocol)?AIDEF.url:'');
+if(url&&(ep.url||ep.key)){try{var hd={'Content-Type':'application/json'};if(ep.key)hd.Authorization='Bearer '+ep.key;
+var r=await fetch(url,{method:'POST',headers:hd,body:JSON.stringify({model:ep.model||AIDEF.model,messages:h,stream:false}),signal:o.signal});
+if(!r.ok)throw new Error('http '+r.status);var j=await r.json();
+var t=j.choices&&j.choices[0]&&j.choices[0].message?j.choices[0].message.content:'';if(!t)throw new Error('empty');
+o.onText({text:t});return{text:t}}
+catch(e){if(ep.url||(o.signal&&o.signal.aborted))throw e}}
+var p=h[h.length-1].content;try{await navigator.clipboard.writeText(p)}catch(e){}
+setTimeout(function(){hist.length=0},0);
+return{text:'Промпт скопирован. Вставьте его в любой AI-сервис или укажите ключ AI в настройках ниже.\n\n'+p}}
+function store(k,v){try{if(v===undefined){var r=localStorage.getItem(k);return r?JSON.parse(r):null}localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}}
+document.querySelectorAll('#tabs button').forEach(function(b){b.onclick=function(){
+document.querySelectorAll('#tabs button').forEach(function(x){x.classList.toggle('on',x===b)});
+['day','news','chat','reg','plan'].forEach(function(s){$(s).hidden=s!==b.dataset.t})}});
+function drawList(){var l=$('list');l.textContent='';var g='';
+A.forEach(function(a,i){if(a[0]!==g){g=a[0];var h=document.createElement('div');h.className='grp';h.textContent=g;l.appendChild(h)}
+var b=document.createElement('button');b.className='as'+(i===cur?' on':'');b.textContent=a[1];var s=document.createElement('small');s.textContent=a[2];b.appendChild(s);
+b.onclick=function(){cur=i;sc=0;hist=[];$('log').textContent='';drawList();drawSc()};l.appendChild(b)})}
+function drawSc(){var a=A[cur];$('an').textContent=a[1];$('ad').textContent=a[2];$('src').textContent=a[4]?'Ответ строится без доступа к интернету: сведения проверяйте по первоисточникам.':'Работает на вымышленных кейсах и типовых шаблонах.';
+var s=$('sc');s.textContent='';a[5].forEach(function(x,i){var b=document.createElement('button');b.className=i===sc?'on':'';b.textContent=x[0];b.onclick=function(){sc=i;hist=[];drawSc()};s.appendChild(b)})}
+drawList();drawSc();
+var RX=/(\d[\d\s]*(руб|₽|тыс|млн|млрд|%)|себестоим|маржинал|маржа|\bИНН\b|договор\s*№|контракт\s*№|@\w+\.\w+)/i;
+function add(r,t){var d=document.createElement('div');d.className='msg '+r;d.textContent=t;$('log').appendChild(d);return d}
+$('send').onclick=async function(){
+var ex=$('inp').value.trim(),g=$('guard');
+if(RX.test(ex)){g.hidden=false;g.textContent='В тексте есть цены, проценты, договоры или контакты. Уберите их или замените вымышленными: коммерческие данные во внешний AI не передаются.';return}
+g.hidden=true;
+if(!sample){sample=askAI}
+if(!sample){g.hidden=false;g.textContent='Генерация недоступна в этом окне. Откройте страницу в claude.ai.';return}
+var a=A[cur],q=hist.length?ex:a[5][sc][1]+(ex?'\n\nУточнение: '+ex:'');if(!q)return;
+add('u',hist.length?ex:a[1]+' · '+a[5][sc][0]+(ex?': '+ex:''));
+hist.push({role:'user',content:(hist.length?'':BASE+a[3]+'\n\n')+q});$('inp').value='';
+var box=add('a','…');ctl=new AbortController();$('stop').hidden=false;$('send').disabled=true;
+try{var r=await sample(hist,{onText:function(t){box.textContent=t.text},signal:ctl.signal,cache:false});box.textContent=r.text;hist.push({role:'assistant',content:r.text})}
+catch(e){box.textContent=ctl.signal.aborted?box.textContent+' [остановлено]':(e&&e.code==='rate_limited'?'Слишком много запросов, повторите позже.':'Не удалось получить ответ.');hist.pop()}
+ctl=null;$('stop').hidden=true;$('send').disabled=false};
+$('stop').onclick=function(){if(ctl)ctl.abort()};
+$('clr').onclick=function(){hist=[];$('log').textContent='';$('guard').hidden=true};
+$('cp').onclick=function(){var m=document.querySelectorAll('#log .msg.a');if(m.length)try{navigator.clipboard.writeText(m[m.length-1].textContent)}catch(e){}};
+var reg=store('reg')||[];
+function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
+function st(r){return r.done?['Выполнено','done']:(r.due&&r.due<today()?['Просрочено','late']:['В работе',''])}
+function fmt(d){return d?d.split('-').reverse().join('.'):'—'}
+function drawReg(){var b=$('rb');b.textContent='';var late=0;
+reg.forEach(function(r,i){var s=st(r);if(s[1]==='late')late++;var tr=document.createElement('tr');
+[r.t,r.o||'—',fmt(r.due)].forEach(function(v){var td=document.createElement('td');td.textContent=v;tr.appendChild(td)});
+var td=document.createElement('td');td.textContent=s[0];td.className=s[1];tr.appendChild(td);
+var a=document.createElement('td'),c=document.createElement('button'),x=document.createElement('button');c.className=x.className='btn';
+c.textContent=r.done?'Вернуть':'Подтвердить результат';c.onclick=function(){r.done=!r.done;store('reg',reg);drawReg()};
+x.textContent='✕';x.onclick=function(){reg.splice(i,1);store('reg',reg);drawReg()};
+a.appendChild(c);a.appendChild(document.createTextNode(' '));a.appendChild(x);tr.appendChild(a);b.appendChild(tr)});
+$('rs').textContent=reg.length?'Всего: '+reg.length+', просрочено: '+late:'Реестр пуст'}
+$('radd').onclick=function(){var t=$('rt').value.trim();if(!t)return;
+if(RX.test(t+' '+$('ro').value)){alert('Уберите цены, проценты, договоры и контакты.');return}
+reg.push({t:t,o:$('ro').value.trim(),due:$('rd').value,done:false});store('reg',reg);$('rt').value='';$('ro').value='';drawReg()};
+$('rcsv').onclick=async function(){var q=function(v){return '"'+String(v).replace(/"/g,'""')+'"'};
+var csv='\ufeffПоручение;Ответственный;Срок;Статус\n'+reg.map(function(r){return [q(r.t),q(r.o||''),fmt(r.due),st(r)[0]].join(';')}).join('\n');
+var u=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})),a=document.createElement('a');a.href=u;a.download='poruchenia.csv';a.click();setTimeout(function(){URL.revokeObjectURL(u)},1000)};
+drawReg();
+var P=[['Неделя 1. Совещания',['Согласовать с ИБ правила использования внешнего AI','Создать отдельный AI-проект с ограничениями на данные','Подготовить шаблоны планёрки и еженедельного совещания','Измерить время подготовки к совещаниям']],
+['Неделя 2. Поручения',['Проверить корпоративную систему задач','Настроить реестр или отчёт по поручениям','Определить правила просрочки и эскалации','Испытать недельный обзор исключений']],
+['Неделя 3. Руководители',['Сценарий встреч 1:1','Модель делегирования','Тренировки сложных разговоров на вымышленных кейсах','Проверить удобство инструментов']],
+['Неделя 4. Оценка',['Повторно измерить затраты времени','Оценить качество решений и совещаний','Собрать обратную связь','Решить, нужен ли внутренний защищённый AI']]];
+var chk=store('chk')||{};
+function drawPlan(){var p=$('pl');p.textContent='';var n=0,t=0;
+P.forEach(function(w,wi){var h=document.createElement('div');h.className='wk';h.textContent=w[0];p.appendChild(h);
+w[1].forEach(function(x,ti){var k=wi+'-'+ti;t++;if(chk[k])n++;var l=document.createElement('label'),c=document.createElement('input'),s=document.createElement('span');
+l.className='ck';c.type='checkbox';c.checked=!!chk[k];c.onchange=function(){chk[k]=c.checked;store('chk',chk);drawPlan()};s.textContent=x;l.appendChild(c);l.appendChild(s);p.appendChild(l)})});
+$('pp').textContent='Выполнено '+n+' из '+t}
+var EP=store('ep')||{};['url','model','key'].forEach(function(k,i){var e=$('ep'+(i+1));e.value=EP[k]||(k==='key'?'':(AIDEF[k]||''));e.onchange=function(){EP[k]=e.value.trim();store('ep',EP)}});
+drawPlan();
+function go(c,s){cur=c;sc=s;hist=[];$('log').textContent='';drawList();drawSc();document.querySelector('#tabs button[data-t=chat]').click()}
+[['Планёрка на сегодня',4,0],['Контроль поручений',5,2],['Встреча 1:1',6,0],['Утренняя сводка',0,2],['Оппонент решению',3,2],['Тренажёр: закупщик',7,0],['Выступление',8,0]].forEach(function(q){var b=document.createElement('button');b.className='btn';b.textContent=q[0];b.onclick=function(){go(q[1],q[2])};$('qk').appendChild(b)});
+var DAY=[['08:45','Подготовка дня: приоритеты и вопросы руководителям (5 мин)'],['09:00','Коммерческая планёрка по сценарию (20–30 мин)'],['11:30','Контроль исполнения: реестр, отклонения, эскалация (10 мин)'],['15:00','Подготовка к встречам с руководителями (5–10 мин)'],['17:30','Итоги дня: решения, эскалации, делегирование, перенос (5 мин)']];
+var dk='day:'+today(),dv=store(dk)||{};$('dd').textContent='Отметки сохраняются на сегодня: '+fmt(today());
+DAY.forEach(function(d,i){var l=document.createElement('label'),c=document.createElement('input'),s=document.createElement('span'),t=document.createElement('b');l.className='dl';c.type='checkbox';c.checked=!!dv[i];c.onchange=function(){dv[i]=c.checked;store(dk,dv)};t.textContent=d[0];s.textContent=d[1];l.appendChild(c);l.appendChild(t);l.appendChild(s);$('dc').appendChild(l)});
+var pr=store('pri')||['','',''];['p1','p2','p3'].forEach(function(id,i){$(id).value=pr[i]||'';$(id).onchange=function(){if(RX.test($(id).value)){$(id).value='';alert('Уберите цены, проценты, договоры и контакты.');return}pr[i]=$(id).value;store('pri',pr)}});
+var jr=store('jr')||[];
+function drawJ(){var l=$('jl');l.textContent='';jr.forEach(function(r,i){var d=document.createElement('div'),s=document.createElement('span'),x=document.createElement('button');d.className='it';s.textContent=r.t+(r.a?' · альтернативы: '+r.a:'')+' · пересмотр: '+fmt(r.d);x.className='btn';x.textContent='✕';x.onclick=function(){jr.splice(i,1);store('jr',jr);drawJ()};d.appendChild(s);d.appendChild(x);l.appendChild(d)})}
+$('jadd').onclick=function(){var t=$('jt').value.trim();if(!t)return;if(RX.test(t+' '+$('ja').value)){alert('Уберите цены, проценты, договоры и контакты.');return}jr.unshift({t:t,a:$('ja').value.trim(),d:$('jd').value});store('jr',jr);$('jt').value='';$('ja').value='';drawJ()};drawJ();
+var NW=[
+['Проекты','06.11.2026','ВСМ Москва — Санкт-Петербург: установлена первая железобетонная балка','Масса 700 т, длина 32,6 м. На 10 полигонах планируют изготовить свыше 4 тыс. таких балок, на трассе заняты 32 тыс. специалистов. По данным Минтранса от 02.11, на полигоне «Селинское» показан цикл от арматурных изделий до готового каркаса балки; около 230 из 700 км трассы пройдёт по мостам, эстакадам и путепроводам.','Минтранс России','https://www.mintrans.gov.ru/eye/press-center/news/13111','Высокая','Через открытые закупки выяснить, кто и какие арматурные изделия закупает для полигонов (ГК «Нацпроектстрой»), и найти точку входа.'],
+['Регулирование','06.10.2026','ЕЭК продлила на 5 лет антидемпинговую меру на бесшовные нефтегазовые трубы из Китая','Пошлина от 12,23% до 31% по производителям, действует до 05.10.2031. Это смежная отрасль: сигнал, что механизм защиты рынка работает. В найденных сегодня материалах новых мер именно по канатам, проволоке и крепежу нет.','ПРАЙМ / ЕЭК','https://1prime.ru/20261009/eek-874102243.html','Высокая','Проверить в реестре ЕЭК и у отраслевой ассоциации, готовятся ли заявки по метизам; подготовить позицию о ценовой дисциплине импорта.'],
+['Конкуренты','10.11.2026','ММК-МЕТИЗ: в октябре договоры с 27 новыми контрагентами','Среди востребованного: проволока, крепёж, сетка и стальные канаты; клиенты из промышленности, торговли, строительства и дорожного хозяйства в разных регионах.','Металлический портал','https://metallicheckiy-portal.ru/news/2026/11/10/mmk-metiz_rasshiril_klientskuy_bazu_po_itogam_oktabra','Средняя','Сравнить с вашей динамикой новых клиентов в строительном и дорожном сегментах (внутри компании).'],
+['Рынок','09.11.2026','Европа: катанка дорожает, импорт стали в ЕС могут сократить','Ориентир на ноябрь для немецкой волочильной катанки €690–705 за тонну (примерно на €10 выше). Также сообщается о возможном сокращении импорта стали в ЕС на 47% и пошлинах вне квот до 50%.','Metallurgprom','https://metallurgprom.org/news/europe/22213-evropejskie-zavody-povyshajut-ceny-na-prokat-no-pokupateli-sderzhivajut-rost.html','Средняя','Оценить, как перенаправление потоков из ЕС может сказаться на экспортёрах и конкуренции на рынках СНГ.'],
+['Свои продукты','10.09.2026','Освоен плоский канат; на Волгоградском филиале запущена новая канатная машина','Плоский канат освоили «Северсталь-метиз» и «Северсталь Подъёмные технологии», первая партия отправлена клиенту. С 29.07 в Волгограде работает машина для 6- и 8-прядных канатов весом до 20 тонн.','Сайт Северсталь-метиз','https://metiz.severstal.com/','Высокая','Использовать как повод для коммуникации с ключевыми отраслями и для сравнения с новинками конкурентов.']];
+NW.forEach(function(n){var c=document.createElement('div');c.className='card nt';
+var a=document.createElement('div');a.className='tg';a.textContent=n[0]+' · '+n[1]+' · достоверность: '+n[6];
+var h=document.createElement('h3');h.textContent=n[2];var p=document.createElement('div');p.textContent=n[3];
+var s=document.createElement('div');s.className='note';s.appendChild(document.createTextNode('Источник: '));var l=document.createElement('a');l.href=n[5];l.target='_blank';l.rel='noopener noreferrer';l.textContent=n[4];s.appendChild(l);
+var d=document.createElement('div');d.className='act';d.textContent='Действие: '+n[7];
+[a,h,p,s,d].forEach(function(e){c.appendChild(e)});$('nl').appendChild(c)});
+$('nq').onclick=function(){try{navigator.clipboard.writeText('Сделай утреннюю сводку коммерческого директора метизной компании на сегодня по открытым источникам: три блока (новые проекты, регулирование и защита рынка, конкуренты). По каждому пункту: факт, дата, ссылка на первоисточник, достоверность и рекомендуемое действие. Не выдумывай данные.')}catch(e){}$('nq').textContent='Скопировано'};
+})();
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}
+</script></body></html>
