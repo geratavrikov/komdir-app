@@ -61,7 +61,7 @@ label.ck{display:flex;gap:8px;padding:3px 0}label.ck input{width:auto}[hidden]{d
 <div class="note" id="src"></div>
 <details open style="margin-top:8px"><summary class="note" style="cursor:pointer">Настройки AI — ключ Gemini (для VPN)</summary>
 <div class="note">По умолчанию — Google Gemini (бесплатный тариф): адрес и модель уже заполнены, вставьте ключ из aistudio.google.com/apikey. Google не отвечает с российских IP, поэтому нужен VPN. Если ключа нет или VPN выключен, приложение само ответит резервной бесплатной моделью без ключа (медленнее, один ответ в 45 секунд). Ключ хранится только в этом браузере.</div>
-<input id="ep1" placeholder="Адрес сервера" style="margin-top:6px"><input id="ep2" placeholder="Модель" style="margin-top:6px"><input id="ep3" placeholder="Ключ Gemini (для VPN)" style="margin-top:6px"><button class="btn" id="hard" style="margin-top:8px">Сбросить кэш и обновить</button><div class="note" id="ver" style="font-size:12px">Версия страницы 6 · 14.11.2026</div></details></div>
+<input id="ep1" placeholder="Адрес сервера" style="margin-top:6px"><input id="ep2" placeholder="Модель" style="margin-top:6px"><input id="ep3" placeholder="Ключ Gemini (для VPN)" style="margin-top:6px"><button class="btn" id="hard" style="margin-top:8px">Сбросить кэш и обновить</button><div class="note" id="ver" style="font-size:12px">Версия страницы 7 · 14.11.2026</div></details></div>
 <div id="log"></div></div></div></section>
 <section id="news" hidden><div class="card"><h2>Сводка рынка на 14.11.2026</h2><div class="note">Собрана из открытых источников на момент создания страницы. Данные статичны: обновляются только при пересборке (см. ниже).</div></div><div id="nl"></div>
 <div class="card"><h2>Как получать сводку каждый день</h2><div class="note" style="font-size:13px">Сама страница не может присылать сообщения и ходить по сайтам: для этого нужен сервер с планировщиком. Рабочие способы:</div>
@@ -80,6 +80,8 @@ label.ck{display:flex;gap:8px;padding:3px 0}label.ck input{width:auto}[hidden]{d
 var BASE='Ты — персональный советник коммерческого директора «Северсталь-метиз» (канаты, проволока, крепёж, арматурные пряди, стальная фибра, сетки); обращайся ко мне лично как к коммерческому директору. Конкретные действия вместо общих рассуждений. Не запрашивай коммерческую тайну, персональные данные, сведения о реальных клиентах, ценах, договорах и финансах; только публичная, синтетическая или разрешённая информация. В ответе: рекомендуемый вариант, альтернативы, риски, критерии успеха, следующие шаги. По-русски, структурно, деловым стилем.';
 var OPEN=' У тебя нет доступа к интернету: опирайся на общеизвестные сведения, не выдумывай номера документов, даты и цифры; для каждого вывода указывай достоверность (высокая/средняя/низкая) и пометку «проверить по первоисточнику» там, где нужна проверка.';
 var A=[
+['Универсальный','Универсальный ассистент','Любой запрос — пишите как есть',' Отвечай на любой запрос по существу. Если просят что-то сделать (составь, перепиши, объясни, посчитай, реши) — выдавай готовый результат, а не план и не общие советы. Если вопрос простой, отвечай коротко, без навязанной структуры. Уточняющие вопросы задавай только когда без них ответ будет неверным.',0,[
+['Любой вопрос','']]],
 ['Рынок и проекты','Аналитик проектов','Инфраструктура и новые заказчики',OPEN,1,[
 ['Карта проектов','Составь карту типов крупных проектов (мосты, ВСМ, АЭС, порты, ГОКи), где нужны канаты, проволока и специальный крепёж: заказчики, стадии, точки входа поставщика.'],
 ['Чек-лист оценки проекта','Дай чек-лист из 15 вопросов для быстрой оценки инфраструктурного проекта как источника спроса на метизы, с критериями приоритета.'],
@@ -156,6 +158,7 @@ A.forEach(function(a,i){if(a[0]!==g){g=a[0];var h=document.createElement('div');
 var b=document.createElement('button');b.className='as'+(i===cur?' on':'');b.textContent=a[1];var s=document.createElement('small');s.textContent=a[2];b.appendChild(s);
 b.onclick=function(){cur=i;sc=0;hist=[];$('log').textContent='';drawList();drawSc()};l.appendChild(b)})}
 function drawSc(){var a=A[cur];$('an').textContent=a[1];$('ad').textContent=a[2];$('src').textContent=a[4]?'Ответ строится без доступа к интернету: сведения проверяйте по первоисточникам.':'Работает на вымышленных кейсах и типовых шаблонах.';
+$('inp').placeholder=a[5][sc][1]?'Уточнение к сценарию (необязательно): отрасль, горизонт, формат результата':'Напишите любой вопрос или задачу: что сделать и в каком формате';
 var s=$('sc');s.textContent='';a[5].forEach(function(x,i){var b=document.createElement('button');b.className=i===sc?'on':'';b.textContent=x[0];b.onclick=function(){sc=i;hist=[];drawSc()};s.appendChild(b)})}
 drawList();drawSc();
 var RX=/(\d[\d\s]*(руб|₽|тыс|млн|млрд|%)|себестоим|маржинал|маржа|\bИНН\b|договор\s*№|контракт\s*№|@\w+\.\w+)/i;
@@ -166,7 +169,8 @@ if(RX.test(ex)){g.hidden=false;g.textContent='В тексте есть цены,
 g.hidden=true;
 if(!sample){sample=askAI}
 if(!sample){g.hidden=false;g.textContent='Генерация недоступна в этом окне. Откройте страницу в claude.ai.';return}
-var a=A[cur],q=hist.length?ex:a[5][sc][1]+(ex?'\n\nУточнение: '+ex:'');if(!q)return;
+var a=A[cur],p0=a[5][sc][1],q=hist.length?ex:(p0?(p0+(ex?'\n\nУточнение: '+ex:'')):ex);
+if(!q){g.hidden=false;g.textContent='Напишите запрос в поле выше — универсальный ассистент отвечает на любой вопрос.';return}
 add('u',hist.length?ex:a[1]+' · '+a[5][sc][0]+(ex?': '+ex:''));
 hist.push({role:'user',content:(hist.length?'':BASE+a[3]+'\n\n')+q});$('inp').value='';
 var box=add('a','…');ctl=new AbortController();$('stop').hidden=false;$('send').disabled=true;
@@ -210,7 +214,7 @@ $('pp').textContent='Выполнено '+n+' из '+t}
 var EP=store('ep')||{};['url','model','key'].forEach(function(k,i){var e=$('ep'+(i+1));e.value=EP[k]||(k==='key'?'':(AIDEF[k]||''));var save=function(){EP[k]=e.value.trim();store('ep',EP)};e.onchange=save;e.oninput=save});
 drawPlan();
 function go(c,s){cur=c;sc=s;hist=[];$('log').textContent='';drawList();drawSc();document.querySelector('#tabs button[data-t=chat]').click()}
-[['Планёрка на сегодня',4,0],['Контроль поручений',5,2],['Встреча 1:1',6,0],['Утренняя сводка',0,2],['Оппонент решению',3,2],['Тренажёр: закупщик',7,0],['Выступление',8,0]].forEach(function(q){var b=document.createElement('button');b.className='btn';b.textContent=q[0];b.onclick=function(){go(q[1],q[2])};$('qk').appendChild(b)});
+[['Спросить что угодно',0,0],['Планёрка на сегодня',5,0],['Контроль поручений',6,2],['Встреча 1:1',7,0],['Утренняя сводка',1,2],['Оппонент решению',4,2],['Тренажёр: закупщик',8,0],['Выступление',9,0]].forEach(function(q){var b=document.createElement('button');b.className='btn';b.textContent=q[0];b.onclick=function(){go(q[1],q[2])};$('qk').appendChild(b)});
 var DAY=[['08:45','Подготовка дня: приоритеты и вопросы руководителям (5 мин)'],['09:00','Коммерческая планёрка по сценарию (20–30 мин)'],['11:30','Контроль исполнения: реестр, отклонения, эскалация (10 мин)'],['15:00','Подготовка к встречам с руководителями (5–10 мин)'],['17:30','Итоги дня: решения, эскалации, делегирование, перенос (5 мин)']];
 var dk='day:'+today(),dv=store(dk)||{};$('dd').textContent='Отметки сохраняются на сегодня: '+fmt(today());
 DAY.forEach(function(d,i){var l=document.createElement('label'),c=document.createElement('input'),s=document.createElement('span'),t=document.createElement('b');l.className='dl';c.type='checkbox';c.checked=!!dv[i];c.onchange=function(){dv[i]=c.checked;store(dk,dv)};t.textContent=d[0];s.textContent=d[1];l.appendChild(c);l.appendChild(t);l.appendChild(s);$('dc').appendChild(l)});
