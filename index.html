@@ -61,7 +61,7 @@ label.ck{display:flex;gap:8px;padding:3px 0}label.ck input{width:auto}[hidden]{d
 <div class="note" id="src"></div>
 <details open style="margin-top:8px"><summary class="note" style="cursor:pointer">Настройки AI — ключ Gemini (для VPN)</summary>
 <div class="note">По умолчанию — Google Gemini (бесплатный тариф): адрес и модель уже заполнены, вставьте ключ из aistudio.google.com/apikey. Google не отвечает с российских IP, поэтому нужен VPN. Если ключа нет или VPN выключен, приложение само ответит резервной бесплатной моделью без ключа (медленнее, один ответ в 45 секунд). Ключ хранится только в этом браузере.</div>
-<input id="ep1" placeholder="Адрес сервера" style="margin-top:6px"><input id="ep2" placeholder="Модель" style="margin-top:6px"><input id="ep3" placeholder="Ключ Gemini (для VPN)" style="margin-top:6px"></details></div>
+<input id="ep1" placeholder="Адрес сервера" style="margin-top:6px"><input id="ep2" placeholder="Модель" style="margin-top:6px"><input id="ep3" placeholder="Ключ Gemini (для VPN)" style="margin-top:6px"><button class="btn" id="hard" style="margin-top:8px">Сбросить кэш и обновить</button><div class="note" style="font-size:12px">Версия страницы 6 · 14.11.2026</div></details></div>
 <div id="log"></div></div></div></section>
 <section id="news" hidden><div class="card"><h2>Сводка рынка на 14.11.2026</h2><div class="note">Собрана из открытых источников на момент создания страницы. Данные статичны: обновляются только при пересборке (см. ниже).</div></div><div id="nl"></div>
 <div class="card"><h2>Как получать сводку каждый день</h2><div class="note" style="font-size:13px">Сама страница не может присылать сообщения и ходить по сайтам: для этого нужен сервер с планировщиком. Рабочие способы:</div>
@@ -175,6 +175,7 @@ catch(e){box.textContent=ctl.signal.aborted?box.textContent+' [остановл�
 ctl=null;$('stop').hidden=true;$('send').disabled=false};
 $('stop').onclick=function(){if(ctl)ctl.abort()};
 $('clr').onclick=function(){hist=[];$('log').textContent='';$('guard').hidden=true};
+$('hard').onclick=async function(){try{var rs=await navigator.serviceWorker.getRegistrations();await Promise.all(rs.map(function(r){return r.unregister()}));var ks=await caches.keys();await Promise.all(ks.map(function(k){return caches.delete(k)}))}catch(e){}location.reload()};
 $('cp').onclick=function(){var m=document.querySelectorAll('#log .msg.a');if(m.length)try{navigator.clipboard.writeText(m[m.length-1].textContent)}catch(e){}};
 var reg=store('reg')||[];
 function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
